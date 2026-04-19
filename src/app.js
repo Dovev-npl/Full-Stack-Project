@@ -2,6 +2,7 @@ import express from "express";
 import resourcesRouter from "./routes/resources.routes.js";
 import reservationsRouter from "./routes/reservations.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import projectInquiriesRouter from "./routes/projectInquiries.routes.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import cookieParser from "cookie-parser";
@@ -19,6 +20,9 @@ app.use(cookieParser());
 // Serve everything in ./public as static assets
 const publicDir = path.join(__dirname, "..", "public");
 app.use(express.static(publicDir));
+
+const frontendDistDir = path.join(__dirname, "..", "frontend", "dist");
+app.use("/frontend", express.static(frontendDistDir));
 
 // --- Views (HTML pages) ---
 app.get("/", (req, res) => {
@@ -41,12 +45,21 @@ app.get("/register", (req, res) => {
   res.sendFile(path.join(publicDir, "register.html"));
 });
 
+app.get(/^\/frontend(?:\/.*)?$/, (req, res, next) => {
+  res.sendFile(path.join(frontendDistDir, "index.html"), (error) => {
+    if (error) {
+      next();
+    }
+  });
+});
+
 // ----------------------------
 // API routes
 // ----------------------------
 app.use("/api/resources", resourcesRouter);
 app.use("/api/reservations", reservationsRouter);
 app.use("/api/auth", authRoutes);
+app.use("/api/project-inquiries", projectInquiriesRouter);
 
 // ----------------------------
 // API 404 (unknown API routes)
