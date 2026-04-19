@@ -4,6 +4,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "postinstall": "npm --prefix frontend install",
+    "prestart": "npm run build:frontend",
+    "predev": "npm run build:frontend",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write *.js",
     "build:frontend": "npm --prefix frontend run build",
