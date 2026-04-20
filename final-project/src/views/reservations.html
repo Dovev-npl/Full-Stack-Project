@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reservations</title>
+  <script defer src="/js/reservations.js"></script>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    input, button { margin: 5px; padding: 5px; }
+    .success { color: green; }
+    .error { color: red; }
+    table { border-collapse: collapse; margin-top: 20px; }
+    td, th { border: 1px solid #ccc; padding: 6px; }
+  </style>
+</head>
+<body>
+
+<h1>Reservations</h1>
+
+<div id="message"></div>
+
+<h2>Create / Edit Reservation</h2>
+
+<form id="reservationForm">
+  <input type="hidden" id="id" />
+
+  <input type="number" id="resourceId" placeholder="Resource ID" required />
+  <input type="number" id="userId" placeholder="User ID" required />
+  <input type="datetime-local" id="startTime" required />
+  <input type="datetime-local" id="endTime" required />
+  <input type="text" id="note" placeholder="Note" />
+  <input type="text" id="status" placeholder="Status (active)" />
+
+  <button type="submit">Save</button>
+</form>
+
+<h2>All Reservations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Resource</th>
+      <th>User</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Note</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="reservationsTable"></tbody>
+</table>
+
+</body>
+</html>
